@@ -6,7 +6,6 @@ public class Main {
         System.out.println("Employee Book");
         Scanner scanner = new Scanner(System.in);
         EmployeeBook employeeBook = new EmployeeBook();
-        employeeBook.getEmployees();
 
         System.out.println("Employees data:");
         employeeBook.employeesData();
@@ -28,7 +27,9 @@ public class Main {
         employeeBook.printNamesOfEmployees();
         System.out.println();
 
-        employeeBook.indexingSalariesAndPrint();
+        System.out.println("Enter percent of indexing: ");
+        float percent = scanner.nextFloat();
+        employeeBook.indexingSalariesAndPrint(percent);
         System.out.println();
 
         System.out.println("Enter department: ");
@@ -41,7 +42,7 @@ public class Main {
         System.out.println("Enter department: ");
         department = scanner.nextInt();
         System.out.println("Enter percent of indexing: ");
-        float percent = scanner.nextFloat();
+        percent = scanner.nextFloat();
         employeeBook.indexingSalariesInDepartment(department, percent);
         System.out.println();
 

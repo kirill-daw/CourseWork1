@@ -3,7 +3,7 @@ import java.util.Scanner;
 public class EmployeeBook {
     private static Employee[] employees;
 
-    public void getEmployees() {
+    public EmployeeBook() {
         employees = new Employee[10];
         employees[0] = new Employee("Вивальди Антонио Борисович", 2, 32000);
         employees[1] = new Employee("Паганини Николо Иванович", 1, 38000);
@@ -34,8 +34,11 @@ public class EmployeeBook {
     }
 
     public Employee findEmployeeWithMinSalary() {
-        Employee minSalaryOfEmployee = employees[0];
+        Employee minSalaryOfEmployee = null;
         for (Employee value : employees) {
+            if (value != null && minSalaryOfEmployee == null) {
+                minSalaryOfEmployee = value;
+            }
             if (value != null && value.getSalary() < minSalaryOfEmployee.getSalary()) {
                 minSalaryOfEmployee = value;
             }
@@ -44,8 +47,11 @@ public class EmployeeBook {
     }
 
     public Employee findEmployeeWithMaxSalary() {
-        Employee maxSalaryOfEmployee = employees[0];
+        Employee maxSalaryOfEmployee = null;
         for (Employee value : employees) {
+            if (value != null && maxSalaryOfEmployee == null) {
+                maxSalaryOfEmployee = value;
+            }
             if (value != null && value.getSalary() > maxSalaryOfEmployee.getSalary()) {
                 maxSalaryOfEmployee = value;
             }
@@ -54,8 +60,14 @@ public class EmployeeBook {
     }
 
     public void averageSalaryOfEmployee() {
-        float averageSalaryOfEmployee = sumExpensesOfSalariesInMonth() / employees.length;
-        System.out.println("Average salary of employee: " + averageSalaryOfEmployee);
+        int count = 0;
+        for (Employee value : employees) {
+            if (value != null) {
+                count++;
+            }
+        }
+            float averageSalaryOfEmployee = sumExpensesOfSalariesInMonth() / count;
+            System.out.println("Average salary of employee: " + averageSalaryOfEmployee);
     }
 
     public void printNamesOfEmployees() {
@@ -66,10 +78,7 @@ public class EmployeeBook {
         }
     }
 
-    public void indexingSalariesAndPrint() {
-        Scanner scanner = new Scanner(System.in);
-        System.out.println("Enter percent of indexing: ");
-        float percent = scanner.nextFloat();
+    public void indexingSalariesAndPrint(float percent) {
         System.out.println("Indexing salaries of employees: ");
         for (Employee value : employees) {
             if (value != null) {
@@ -81,27 +90,27 @@ public class EmployeeBook {
     }
 
     public void findMinSalaryInDepartment(int department) {
-        Employee minSalaryEmployeeInDepartment = findEmployeeWithMaxSalary();
+        Employee minSalaryEmployeeInDepartment = null;
         for (Employee value : employees) {
+            if (value != null && value.getDepartment() == department && minSalaryEmployeeInDepartment == null) {
+                minSalaryEmployeeInDepartment = value;
+            }
             if (value != null && value.getDepartment() == department && value.getSalary() < minSalaryEmployeeInDepartment.getSalary()) {
                 minSalaryEmployeeInDepartment = value;
             }
-        }
-        if (minSalaryEmployeeInDepartment.getDepartment() != department) {
-            minSalaryEmployeeInDepartment = null;
         }
         System.out.println("Employee with min salary in " + department + " department: " + minSalaryEmployeeInDepartment);
     }
 
     public void findMaxSalaryInDepartment(int department) {
-        Employee maxSalaryEmployeeInDepartment = findEmployeeWithMinSalary();
+        Employee maxSalaryEmployeeInDepartment = null;
         for (Employee value : employees) {
+            if (value != null && value.getDepartment() == department && maxSalaryEmployeeInDepartment == null) {
+                maxSalaryEmployeeInDepartment = value;
+            }
             if (value != null && value.getDepartment() == department && value.getSalary() > maxSalaryEmployeeInDepartment.getSalary()) {
                 maxSalaryEmployeeInDepartment = value;
             }
-        }
-        if (maxSalaryEmployeeInDepartment.getDepartment() != department) {
-            maxSalaryEmployeeInDepartment = null;
         }
         System.out.println("Employee with max salary in " + department + " department: " + maxSalaryEmployeeInDepartment);
     }
@@ -176,19 +185,22 @@ public class EmployeeBook {
 
     public void deleteEmployee(int id) {
         for (int i = 0; i < employees.length; i++) {
-            if (employees[i].getId() == id) {
+            if (employees[i] != null && employees[i].getId() == id) {
                 System.out.println("Employee " + employees[i].getFullName() + " was deleted");
                 employees[i] = null;
-                break;
+                return;
             }
         }
+        System.out.println("This id is void.");
     }
 
     public void getEmployee(int id) {
         for (Employee value : employees) {
             if (value != null && value.getId() == id) {
                 System.out.println(value);
+                return;
             }
         }
+        System.out.println("This id is void.");
     }
 }
