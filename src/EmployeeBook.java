@@ -1,5 +1,3 @@
-import java.util.Scanner;
-
 public class EmployeeBook {
     private static Employee[] employees;
 
@@ -92,10 +90,7 @@ public class EmployeeBook {
     public void findMinSalaryInDepartment(int department) {
         Employee minSalaryEmployeeInDepartment = null;
         for (Employee value : employees) {
-            if (value != null && value.getDepartment() == department && minSalaryEmployeeInDepartment == null) {
-                minSalaryEmployeeInDepartment = value;
-            }
-            if (value != null && value.getDepartment() == department && value.getSalary() < minSalaryEmployeeInDepartment.getSalary()) {
+            if (value != null && value.getDepartment() == department && (minSalaryEmployeeInDepartment == null || value.getSalary() < minSalaryEmployeeInDepartment.getSalary())) {
                 minSalaryEmployeeInDepartment = value;
             }
         }
@@ -105,10 +100,7 @@ public class EmployeeBook {
     public void findMaxSalaryInDepartment(int department) {
         Employee maxSalaryEmployeeInDepartment = null;
         for (Employee value : employees) {
-            if (value != null && value.getDepartment() == department && maxSalaryEmployeeInDepartment == null) {
-                maxSalaryEmployeeInDepartment = value;
-            }
-            if (value != null && value.getDepartment() == department && value.getSalary() > maxSalaryEmployeeInDepartment.getSalary()) {
+            if (value != null && value.getDepartment() == department && (maxSalaryEmployeeInDepartment == null || value.getSalary() > maxSalaryEmployeeInDepartment.getSalary())) {
                 maxSalaryEmployeeInDepartment = value;
             }
         }
